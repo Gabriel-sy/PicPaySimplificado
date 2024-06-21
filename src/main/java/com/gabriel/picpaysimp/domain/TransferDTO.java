@@ -2,5 +2,7 @@ package com.gabriel.picpaysimp.domain;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public record TransferDTO(@NotEmpty Double value, @NotEmpty Long payer, @NotEmpty Long payee) {
+import java.math.BigDecimal;
+
+public record TransferDTO(@NotEmpty BigDecimal value, @NotEmpty Long payer, @NotEmpty Long payee) {
 }

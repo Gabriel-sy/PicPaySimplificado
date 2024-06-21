@@ -1,11 +1,9 @@
 package com.gabriel.picpaysimp.controller;
 
 import com.gabriel.picpaysimp.domain.TransferDTO;
-import com.gabriel.picpaysimp.domain.common.CommonUser;
-import com.gabriel.picpaysimp.domain.retailer.Retailer;
+import com.gabriel.picpaysimp.domain.user.User;
 import com.gabriel.picpaysimp.exception.UserNotFoundException;
-import com.gabriel.picpaysimp.repository.CommonUserRepository;
-import com.gabriel.picpaysimp.repository.RetailerRepository;
+import com.gabriel.picpaysimp.repository.UserRepository;
 import com.gabriel.picpaysimp.service.TransferService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping()
 public class TransferController {
     private final TransferService transferService;
-    private final RetailerRepository retailerRepository;
-    private final CommonUserRepository commonUserRepository;
+    private final UserRepository userRepository;
 
 
-    public TransferController(TransferService transferService, RetailerRepository retailerRepository, CommonUserRepository commonUserRepository) {
+    public TransferController(TransferService transferService, UserRepository userRepository) {
         this.transferService = transferService;
-        this.retailerRepository = retailerRepository;
-        this.commonUserRepository = commonUserRepository;
+        this.userRepository = userRepository;
     }
 
     @PostMapping(path = "/transfer")
@@ -31,15 +27,11 @@ public class TransferController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(path = "common/{id}")
-    public ResponseEntity<CommonUser> findCommonUserById(@PathVariable Long id){
-        return ResponseEntity.ok(commonUserRepository.findById(id).
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id){
+        return ResponseEntity.ok(userRepository.findById(id).
                 orElseThrow(() -> new UserNotFoundException("ID não encontrado")));
     }
 
-    @GetMapping(path = "retailer/{id}")
-    public ResponseEntity<Retailer> findRetailerById(@PathVariable Long id){
-        return ResponseEntity.ok(retailerRepository.findById(id).
-                orElseThrow(() -> new UserNotFoundException("ID não encontrado")));
-    }
+
 }

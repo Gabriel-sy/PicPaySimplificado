@@ -1,13 +1,13 @@
 package com.gabriel.picpaysimp.config;
 
 import com.gabriel.picpaysimp.domain.NotificationDetails;
-import com.gabriel.picpaysimp.domain.common.CommonUser;
-import com.gabriel.picpaysimp.domain.retailer.Retailer;
+import com.gabriel.picpaysimp.domain.user.User;
 import com.gabriel.picpaysimp.exception.NotificationException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Configuration
@@ -34,12 +34,12 @@ public class TransferRequests {
         }
     }
 
-    public void receiverNotification(CommonUser commonUser, Double recievedAmount){
-        String message = commonUser.getName() + " você acabou de receber: " + recievedAmount + "na sua conta!";
+    public void receiverNotification(User user, BigDecimal recievedAmount){
+        String message = user.getName() + " você acabou de receber: " + recievedAmount + "na sua conta!";
 
         NotificationDetails notificationDetails = new NotificationDetails(message,
                 LocalDateTime.now(),
-                commonUser.getUserDetails().getEmail());
+                user.getEmail());
 
         try {
             webClient.build()
@@ -55,34 +55,13 @@ public class TransferRequests {
 
     }
 
-    public void receiverNotification(Retailer retailer, Double recievedAmount){
-        String message = retailer.getName() + " você acabou de receber: " + recievedAmount + "na sua conta!";
+    public void senderNotification(User user, BigDecimal amountSent){
+
+        String message = user.getName() + " você acabou de enviar: " + amountSent;
 
         NotificationDetails notificationDetails = new NotificationDetails(message,
                 LocalDateTime.now(),
-                retailer.getUserDetails().getEmail());
-
-        try {
-            webClient.build()
-                    .post()
-                    .uri(notifyUrl)
-                    .bodyValue(notificationDetails)
-                    .retrieve()
-                    .bodyToMono(Void.class)
-                    .block();
-        } catch (WebClientResponseException e) {
-            throw new NotificationException("Erro ao enviar notificação do recebedor");
-        }
-
-    }
-
-    public void senderNotification(CommonUser commonUser, Double amountSent){
-
-        String message = commonUser.getName() + " você acabou de enviar: " + amountSent;
-
-        NotificationDetails notificationDetails = new NotificationDetails(message,
-                LocalDateTime.now(),
-                commonUser.getUserDetails().getEmail());
+                user.getEmail());
 
         try {
             webClient.build()
