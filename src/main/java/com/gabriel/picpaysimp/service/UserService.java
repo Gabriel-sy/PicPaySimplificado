@@ -3,7 +3,9 @@ package com.gabriel.picpaysimp.service;
 import com.gabriel.picpaysimp.domain.user.User;
 import com.gabriel.picpaysimp.exception.UserNotFoundException;
 import com.gabriel.picpaysimp.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
     private final UserRepository userRepository;
 

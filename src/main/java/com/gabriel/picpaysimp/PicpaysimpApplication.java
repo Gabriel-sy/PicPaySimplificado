@@ -24,10 +24,10 @@ public class PicpaysimpApplication {
 		return args -> {
 			BigDecimal defaultMoney = new BigDecimal(100);
 
-			User exampleRetailer1 = new User(defaultMoney, "example1@gmail.com","23453234388" , "exampleRetailer1", UserType.RETAILER);
-			User exampleRetailer2 = new User(defaultMoney, "example2@gmail.com","23453234366" , "exampleRetailer2", UserType.RETAILER);
-			User exampleCommon1 = new User(defaultMoney, "example3@gmail.com","23453234399" , "exampleCommon1", UserType.COMMON);
-			User exampleCommon2 = new User(defaultMoney, "example4@gmail.com","23453234311" , "exampleCommon1", UserType.COMMON);
+			User exampleRetailer1 = new User(defaultMoney, "exampleRetailer1","23453234388" , "example1@gmail.com", UserType.RETAILER);
+			User exampleRetailer2 = new User(defaultMoney, "exampleRetailer2","23453234366" , "example2@gmail.com", UserType.RETAILER);
+			User exampleCommon1 = new User(defaultMoney, "exampleCommon1","23453234399" , "example3@gmail.com", UserType.COMMON);
+			User exampleCommon2 = new User(defaultMoney, "exampleCommon2","23453234311" , "example4@gmail.com", UserType.COMMON);
 
 
 			userRepository.save(exampleRetailer1);

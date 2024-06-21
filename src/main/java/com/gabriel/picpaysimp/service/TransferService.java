@@ -27,10 +27,12 @@ public class TransferService {
 
     @Transactional
     public void transfer(TransferDTO transferDTO) {
-        isPayerRetailer(transferDTO.payer());
+
 
         User payer = userService.findUserById(transferDTO.payer());
         User payee = userService.findUserById(transferDTO.payee());
+
+        isPayerRetailer(payer);
 
         checkPayerWallet(payer.getMoney(), transferDTO.value());
 
@@ -42,13 +44,13 @@ public class TransferService {
     }
 
 
-    private void checkAuthorization() {
+    public void checkAuthorization() {
         if (!transferRequests.authorizeRequest()){
             throw new TransferAuthenticationException("Transação não autorizada.");
         }
     }
 
-    private void transferMoney(User payer, User payee, BigDecimal value) {
+    public void transferMoney(User payer, User payee, BigDecimal value) {
         payee.setMoney(payee.getMoney().add(value));
         userRepository.save(payee);
 
@@ -63,14 +65,14 @@ public class TransferService {
         }
     }
 
-    public void isPayerRetailer(Long id){
-        if (userService.findUserById(id).getUserType().equals(UserType.RETAILER)){
+    public void isPayerRetailer(User payer){
+        if (payer.getUserType() == UserType.RETAILER){
             throw new InvalidPayerException("Apenas usuários comuns podem fazer pagamentos");
         }
     }
 
 
-    private void sendNotifications(User payer, User payee, BigDecimal amount) {
+    public void sendNotifications(User payer, User payee, BigDecimal amount) {
         transferRequests.senderNotification(payer, amount);
         transferRequests.receiverNotification(payee, amount);
     }

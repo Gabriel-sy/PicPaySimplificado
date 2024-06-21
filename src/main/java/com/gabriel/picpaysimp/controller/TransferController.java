@@ -5,6 +5,7 @@ import com.gabriel.picpaysimp.domain.user.User;
 import com.gabriel.picpaysimp.exception.UserNotFoundException;
 import com.gabriel.picpaysimp.repository.UserRepository;
 import com.gabriel.picpaysimp.service.TransferService;
+import com.gabriel.picpaysimp.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping()
 public class TransferController {
     private final TransferService transferService;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
 
-    public TransferController(TransferService transferService, UserRepository userRepository) {
+    public TransferController(TransferService transferService, UserService userService) {
         this.transferService = transferService;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @PostMapping(path = "/transfer")
@@ -29,8 +30,7 @@ public class TransferController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id){
-        return ResponseEntity.ok(userRepository.findById(id).
-                orElseThrow(() -> new UserNotFoundException("ID não encontrado")));
+        return ResponseEntity.ok(userService.findUserById(id));
     }
 
 
