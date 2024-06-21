@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 public class RestExceptionHandler {
 
     @ExceptionHandler(TransferAuthenticationException.class)
-    public ResponseEntity<TransferAuthenticationExceptionDetails> transferAuthenticationExceptionHandler(
+    public ResponseEntity<ExceptionDetails> transferAuthenticationExceptionHandler(
             TransferAuthenticationException exception){
         return new ResponseEntity<>(
-                TransferAuthenticationExceptionDetails.builder()
+                ExceptionDetails.builder()
                         .title("Falha na autenticação da transação")
                         .status(HttpStatus.FORBIDDEN.value())
                         .details(exception.getMessage())
@@ -25,10 +25,10 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<UserNotFoundExceptionDetails> userNotFoundExceptionHandler(
+    public ResponseEntity<ExceptionDetails> userNotFoundExceptionHandler(
             UserNotFoundException exception){
         return new ResponseEntity<>(
-                UserNotFoundExceptionDetails.builder()
+                ExceptionDetails.builder()
                         .title("Usuário não encontrado")
                         .status(HttpStatus.BAD_REQUEST.value())
                         .details(exception.getMessage())
@@ -38,10 +38,10 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(InsufficientFundsException.class)
-    public ResponseEntity<InsufficientFundsExceptionDetails> insufficientFundsExceptionHandler(
+    public ResponseEntity<ExceptionDetails> insufficientFundsExceptionHandler(
             InsufficientFundsException exception){
         return new ResponseEntity<>(
-                InsufficientFundsExceptionDetails.builder()
+                ExceptionDetails.builder()
                         .title("Fundos insuficientes")
                         .status(HttpStatus.BAD_REQUEST.value())
                         .details(exception.getMessage())
@@ -51,10 +51,10 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(InvalidPayerException.class)
-    public ResponseEntity<InvalidPayerExceptionDetails> invalidPayerExceptionHandler(
+    public ResponseEntity<ExceptionDetails> invalidPayerExceptionHandler(
             InvalidPayerException exception){
         return new ResponseEntity<>(
-                InvalidPayerExceptionDetails.builder()
+                ExceptionDetails.builder()
                         .title("Pagador inválido")
                         .status(HttpStatus.BAD_REQUEST.value())
                         .details(exception.getMessage())
@@ -64,10 +64,10 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(NotificationException.class)
-    public ResponseEntity<NotificationExceptionDetails> notificationExceptionHandler(
+    public ResponseEntity<ExceptionDetails> notificationExceptionHandler(
             NotificationException exception){
         return new ResponseEntity<>(
-                NotificationExceptionDetails.builder()
+                ExceptionDetails.builder()
                         .title("Erro no envio da notificação")
                         .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                         .details(exception.getMessage())

@@ -31,8 +31,6 @@ public class TransferService {
 
     @Transactional
     public void transfer(TransferDTO transferDTO) {
-
-
         User payer = userService.findUserById(transferDTO.payer());
         User payee = userService.findUserById(transferDTO.payee());
 

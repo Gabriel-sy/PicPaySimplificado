@@ -35,7 +35,6 @@ public class TransferRequests {
     }
 
     public void receiverNotification(User user, BigDecimal recievedAmount){
-
         String message = user.getName() + " você acabou de receber: " + recievedAmount.toString() + "na sua conta!";
 
         NotificationDetails notificationDetails = new NotificationDetails(message,
