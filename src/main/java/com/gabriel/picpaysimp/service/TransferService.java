@@ -1,7 +1,8 @@
 package com.gabriel.picpaysimp.service;
 
 import com.gabriel.picpaysimp.config.TransferRequests;
-import com.gabriel.picpaysimp.domain.TransferDTO;
+import com.gabriel.picpaysimp.dto.TransferDTO;
+import com.gabriel.picpaysimp.dto.TransferHistoryDTO;
 import com.gabriel.picpaysimp.domain.user.User;
 import com.gabriel.picpaysimp.domain.user.UserType;
 import com.gabriel.picpaysimp.exception.InsufficientFundsException;
@@ -12,17 +13,20 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 public class TransferService {
     private final TransferRequests transferRequests;
     private final UserRepository userRepository;
     private final UserService userService;
+    private final TransferHistoryService transferHistoryService;
 
-    public TransferService(TransferRequests transferRequests, UserRepository userRepository, UserService userService) {
+    public TransferService(TransferRequests transferRequests, UserRepository userRepository, UserService userService, TransferHistoryService transferHistoryService) {
         this.transferRequests = transferRequests;
         this.userRepository = userRepository;
         this.userService = userService;
+        this.transferHistoryService = transferHistoryService;
     }
 
     @Transactional
@@ -41,6 +45,9 @@ public class TransferService {
         transferMoney(payer, payee, transferDTO.value());
 
         sendNotifications(payer, payee, transferDTO.value());
+
+        TransferHistoryDTO transferHistoryDTO = new TransferHistoryDTO(transferDTO.value(), LocalDateTime.now(), payer, payee);
+        transferHistoryService.saveTransfer(transferHistoryDTO);
     }
 
 

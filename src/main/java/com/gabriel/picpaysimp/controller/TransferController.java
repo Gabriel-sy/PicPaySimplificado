@@ -1,9 +1,7 @@
 package com.gabriel.picpaysimp.controller;
 
-import com.gabriel.picpaysimp.domain.TransferDTO;
+import com.gabriel.picpaysimp.dto.TransferDTO;
 import com.gabriel.picpaysimp.domain.user.User;
-import com.gabriel.picpaysimp.exception.UserNotFoundException;
-import com.gabriel.picpaysimp.repository.UserRepository;
 import com.gabriel.picpaysimp.service.TransferService;
 import com.gabriel.picpaysimp.service.UserService;
 import org.springframework.http.ResponseEntity;

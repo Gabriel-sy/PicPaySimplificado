@@ -1,7 +1,8 @@
 package com.gabriel.picpaysimp.service;
 
 import com.gabriel.picpaysimp.config.TransferRequests;
-import com.gabriel.picpaysimp.domain.TransferDTO;
+import com.gabriel.picpaysimp.dto.TransferDTO;
+import com.gabriel.picpaysimp.dto.TransferHistoryDTO;
 import com.gabriel.picpaysimp.domain.user.User;
 import com.gabriel.picpaysimp.domain.user.UserType;
 import com.gabriel.picpaysimp.exception.InsufficientFundsException;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -33,6 +35,8 @@ class TransferServiceTest {
     private TransferRequests transferRequests;
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private TransferHistoryService transferHistoryService;
 
     @BeforeEach
     void setUp(){
@@ -64,6 +68,7 @@ class TransferServiceTest {
         verify(userRepository).save(payee);
         payer.setMoney(new BigDecimal(0));
         verify(userRepository).save(payer);
+        verify(transferHistoryService).saveTransfer(ArgumentMatchers.any(TransferHistoryDTO.class));
     }
 
     @Test
@@ -101,6 +106,7 @@ class TransferServiceTest {
         BigDecimal defaultMoney = new BigDecimal(100);
         User payer = new User(1L, defaultMoney, "example1@gmail.com","23453234388" , "exampleCommon1", UserType.COMMON);
         User payee = new User(2L, defaultMoney, "example2@gmail.com","23453234377" , "exampleCommon2", UserType.COMMON);
+
         TransferDTO transferDTO = new TransferDTO(defaultMoney, payer.getId(), payee.getId());
 
         payer.setUserType(UserType.RETAILER);

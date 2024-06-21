@@ -1,6 +1,6 @@
 package com.gabriel.picpaysimp.controller;
 
-import com.gabriel.picpaysimp.domain.TransferDTO;
+import com.gabriel.picpaysimp.dto.TransferDTO;
 import com.gabriel.picpaysimp.domain.user.User;
 import com.gabriel.picpaysimp.domain.user.UserType;
 import com.gabriel.picpaysimp.service.TransferService;

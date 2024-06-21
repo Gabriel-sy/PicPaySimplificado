@@ -1,4 +1,4 @@
-package com.gabriel.picpaysimp.domain;
+package com.gabriel.picpaysimp.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 

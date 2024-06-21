@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 
 @AllArgsConstructor
+@Data
 public class NotificationDetails {
     private String message;
     private LocalDateTime localDateTime;
