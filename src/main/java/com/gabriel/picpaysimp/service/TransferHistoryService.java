@@ -5,6 +5,8 @@ import com.gabriel.picpaysimp.dto.TransferHistoryDTO;
 import com.gabriel.picpaysimp.repository.TransferHistoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransferHistoryService {
     private final TransferHistoryRepository transferHistoryRepository;
@@ -22,5 +24,9 @@ public class TransferHistoryService {
                 transferHistoryDTO.payee());
 
         transferHistoryRepository.save(transferToSave);
+    }
+
+    public List<TransferHistory> findAll(){
+        return transferHistoryRepository.findAll();
     }
 }
