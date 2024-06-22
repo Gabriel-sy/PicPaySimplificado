@@ -33,15 +33,16 @@ cd PicPaySimplificado
 Execute o projeto usando Maven
 ```bash
 mvn clean install
-./mvnw spring-boot:run
+mvnw spring-boot:run
 ```
 A aplicação vai estar rodando na porta 8080.
 ## Endpoints
 
 **GET USER**
 ```markdown
-GET /{id} - Retorna o usuário com o id passado, a aplicação inicia com 4 usuários padrão, com os IDs 1, 2, 3, 4
-1 e 2 são lojistas e não podem fazer pagamentos, 3 e 4 são usuários comuns, podem pagar e receber.
+GET /{id} - Retorna o usuário com o id passado. A aplicação inicia com 4 usuários padrão, 
+com os IDs 1, 2, 3, 4. 1 e 2 são lojistas e não podem fazer pagamentos,
+3 e 4 são usuários comuns, podem pagar e receber.
 ```
 ```json
 {
@@ -86,7 +87,8 @@ GET /history - Retorna o histórico de transações
 
 **POST TRANSFER**
 ```markdown
-POST /transfer - Realiza transação entre dois usuários lojistas só podem receber. (A transação demora algumas tentativas até ser aprovada)
+POST /transfer - Realiza transação entre dois usuários, lojistas só podem receber.
+(A transação leva algumas tentativas até ser aprovada)
 ```
 ```json
 {
